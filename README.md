@@ -1,8 +1,6 @@
 # Kazoo::Ruby::Sdk
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/kazoo/ruby/sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+SDK for Kazoo API
 
 ## Installation
 
@@ -20,15 +18,31 @@ Or install it yourself as:
 
     $ gem install kazoo-ruby-sdk
 
+## Config
+
+Create config/initializers/kazoo_ruby_sdk.rb
+```ruby
+KazooRubySdk.auth_url = 'http://yourserver.com:8000/v1'
+KazooRubySdk.realm = 'your-realm'
+KazooRubySdk.username = 'your-username'
+KazooRubySdk.password = 'your-password'
+```
+
 ## Usage
+```ruby
+api = Whistle::Sdk::AuthSession.new    
+session = api.new_session    
+devices = session.list_devices.data    
+device_id = devices[0].id    
+device = session.get_device(device_id)
+```
+ 
+## List of methods
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+* list_devices()
+* get_device(device_id)
+* get_device_statuses
+* create_device(name)
 
 ## Contributing
 

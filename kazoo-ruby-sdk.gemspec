@@ -5,7 +5,7 @@ require 'kazoo/ruby/sdk/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "kazoo-ruby-sdk"
-  spec.version       = Kazoo::Ruby::Sdk::VERSION
+  spec.version       = KazooRubySdk::VERSION
   spec.authors       = ["Aleksey"]
   spec.email         = ["pohodnyaa@gmail.com"]
 
