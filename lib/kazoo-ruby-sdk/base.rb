@@ -1,8 +1,7 @@
 module KazooRubySdk
   class Base
     def create_conn_object(url)
-      Faraday.new(:url => url,
-                  :user_agent => 'Kazoo Ruby SDK') do |builder|
+      Faraday.new(:url => url) do |builder|
         builder.use Faraday::Response::Mashify
         builder.use Faraday::Response::ParseJson
         builder.use Faraday::Response::RaiseError
