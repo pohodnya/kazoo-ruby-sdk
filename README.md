@@ -46,7 +46,7 @@ device = session.get_device(device_id)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/kazoo-ruby-sdk.
+Bug reports and pull requests are welcome on GitHub at https://github.com/pohodnya/kazoo-ruby-sdk.
 
 
 ## License
