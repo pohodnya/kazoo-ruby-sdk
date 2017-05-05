@@ -30,7 +30,7 @@ KazooRubySdk.password = 'your-password'
 
 ## Usage
 ```ruby
-api = Whistle::Sdk::AuthSession.new    
+api = KazooRubySdk::AuthSession.new    
 session = api.new_session    
 devices = session.list_devices.data    
 device_id = devices[0].id    
