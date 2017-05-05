@@ -8,7 +8,7 @@ require 'kazoo-ruby-sdk/auth_session'
 require 'kazoo-ruby-sdk/api_session'
 
 module KazooRubySdk
-  class<< self
+  class << self
     attr_accessor :auth_url, :realm, :username, :password
   end
 end
