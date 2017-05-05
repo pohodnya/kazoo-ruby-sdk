@@ -1,7 +1,8 @@
 module KazooRubySdk
   class Base
     def create_conn_object(url)
-      Faraday.new(:url => url) do |builder|
+      Faraday.new(:url => url, ssl: { verify: false }) do |builder|
+        builder.ss
         builder.use Faraday::Response::Mashify
         builder.use Faraday::Response::ParseJson
         builder.use Faraday::Response::RaiseError
