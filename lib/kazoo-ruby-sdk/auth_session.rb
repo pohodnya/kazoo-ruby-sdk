@@ -27,11 +27,7 @@ module KazooRubySdk
 
     def authenticate!
       req = {:data => {:credentials => get_credentials_hash, :realm => realm}, :verb => 'PUT'}
-      begin
-        response = auth_pipe.put 'user_auth', req
-      rescue => e
-        puts e
-      end
+      response = auth_pipe.put 'user_auth', req
       @auth_token = response.body.auth_token
       @account_id = response.body.data.account_id
       @owner_id = response.body.data.owner_id
@@ -49,7 +45,11 @@ module KazooRubySdk
     end
 
     def get_endpoint_apps
-      auth_pipe.get "accounts/#{account_id}/users/#{owner_id}", 'X-Auth-Token' => auth_token
+      begin
+        auth_pipe.get "accounts/#{account_id}/users/#{owner_id}", 'X-Auth-Token' => auth_token
+      rescue => error
+        puts error
+      end
     end
 
     def select_session_endpoint_app(name)
