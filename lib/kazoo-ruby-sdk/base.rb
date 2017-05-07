@@ -5,7 +5,7 @@ module KazooRubySdk
         builder.use Faraday::Response::Mashify
         builder.use Faraday::Response::ParseJson
         builder.use Faraday::Response::RaiseError
-        builder.use Faraday::Request::EncodeJson
+        builder.use FaradayMiddleware::EncodeJson
         builder.use Faraday::Request::UrlEncoded
         builder.adapter Faraday.default_adapter
       end
