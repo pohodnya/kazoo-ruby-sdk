@@ -11,7 +11,7 @@ module KazooRubySdk
       @pipe = create_conn_object(api_url)
     end
 
-    def list_devices()
+    def list_devices
       pipe.get do |request|
         request.url "accounts/#{account_id}/devices"
         request.headers['X-Auth-Token'] = auth_token
@@ -47,6 +47,30 @@ module KazooRubySdk
         request.url "accounts/#{account_id}/users"
         request.headers['X-Auth-Token'] = auth_token
         request.body = body
+      end.body
+    end
+
+    def update_user(user_id, attributes)
+      body = { data: {}}
+      attributes.each { |key, value| body[:data][key] = value.to_s}
+      pipe.patch do |request|
+        request.url "accounts/#{account_id}/users/#{user_id}"
+        request.headers['X-Auth-Token'] = auth_token
+        request.body = body
+      end.body
+    end
+
+    def list_users
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/users"
+        request.headers['X-Auth-Token'] = auth_token
+      end.body
+    end
+
+    def get_user(user_id)
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/users/#{user_id}"
+        request.headers['X-Auth-Token'] = auth_token
       end.body
     end
   end
