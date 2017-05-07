@@ -39,5 +39,15 @@ module KazooRubySdk
         request.body = {:data => {:name => name}}
       end.body
     end
+
+    def create_user(attributes)
+      body = { data: {}}
+      attributes.each { |key, value| body.data[key] = value}
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/devices/status"
+        request.headers['X-Auth-Token'] = auth_token
+        request.body = body
+      end.body
+    end
   end
 end
