@@ -27,7 +27,11 @@ module KazooRubySdk
 
     def authenticate!
       req = {:data => {:credentials => get_credentials_hash, :realm => realm}, :verb => 'PUT'}
-      response = auth_pipe.put 'user_auth', req
+      begin
+        response = auth_pipe.put 'user_auth', req
+      rescue => e
+        puts e
+      end
       @auth_token = response.body.auth_token
       @account_id = response.body.data.account_id
       @owner_id = response.body.data.owner_id
