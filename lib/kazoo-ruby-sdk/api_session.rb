@@ -44,7 +44,7 @@ module KazooRubySdk
       body = { data: {}}
       attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.get do |request|
-        request.url "accounts/#{account_id}/devices/status"
+        request.url "accounts/#{account_id}/users"
         request.headers['X-Auth-Token'] = auth_token
         request.body = body
       end.body
