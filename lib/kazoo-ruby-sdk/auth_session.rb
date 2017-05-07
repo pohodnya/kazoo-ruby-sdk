@@ -46,7 +46,10 @@ module KazooRubySdk
 
     def get_endpoint_apps
       begin
-        auth_pipe.get "accounts/#{account_id}/users/#{owner_id}", 'X-Auth-Token' => auth_token
+        auth_pipe.get do |request|
+          request.url "accounts/#{account_id}/users/#{owner_id}"
+          request.headers['X-Auth-Token'] = auth_token
+        end
       rescue => error
         puts error
       end
