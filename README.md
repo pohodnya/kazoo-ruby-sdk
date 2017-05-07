@@ -39,10 +39,17 @@ device = session.get_device(device_id)
  
 ## List of methods
 
+#### Device
 * list_devices()
 * get_device(device_id)
 * get_device_statuses
 * create_device(name)
+
+#### User
+* list_users()
+* get_user(user_id)
+* create_user(attributes)
+* update_user(user_id, attributes)
 
 ## Contributing
 
