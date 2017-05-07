@@ -31,8 +31,7 @@ module KazooRubySdk
       @auth_token = response.body.auth_token
       @account_id = response.body.data.account_id
       @owner_id = response.body.data.owner_id
-
-      @api_url = select_session_endpoint_app('voip')
+      @api_url = response.body.data.apps['voip'].api_url
       @api_pipe = create_conn_object(api_url)
       shared_auth
     end
