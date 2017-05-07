@@ -1,7 +1,7 @@
 module KazooRubySdk
   class AuthSession < Base
     attr_accessor :auth_url, :realm, :username, :password
-    attr_reader :auth_pipe, :auth_token, :account_id, :owner_id, :api_url, :api_pipe, :api_token
+    attr_reader :auth_pipe, :auth_token, :account_id, :owner_id
 
     def initialize
       @auth_url = KazooRubySdk.auth_url
@@ -18,7 +18,7 @@ module KazooRubySdk
 
     def new_session
       authenticate! unless is_authenticated?
-      return ApiSession.new(:auth_token => api_token, :api_url => api_url, :realm => realm, :account_id => account_id, :owner_id => owner_id)
+      return ApiSession.new(:auth_token => auth_token, :api_url => auth_url, :realm => realm, :account_id => account_id, :owner_id => owner_id)
     end
 
     def get_credentials_hash
@@ -31,29 +31,8 @@ module KazooRubySdk
       @auth_token = response.body.auth_token
       @account_id = response.body.data.account_id
       @owner_id = response.body.data.owner_id
-      @api_url = response.body.data.apps['voip'].api_url
-      @api_pipe = create_conn_object(api_url)
-      shared_auth
+      auth_token
     end
 
-    def shared_auth
-      req = {:data => {:realm => realm, :account_id => account_id, :shared_token => auth_token}, :verb => 'PUT'}
-      resp = @api_pipe.put 'shared_auth', req
-      @api_token = resp.body.auth_token
-      return api_token
-    end
-
-    def get_endpoint_apps
-      auth_pipe.get do |request|
-        request.url "accounts/#{account_id}/users/#{owner_id}"
-        request.headers['X-Auth-Token'] = auth_token
-      end
-    end
-
-    def select_session_endpoint_app(name)
-      apps = get_endpoint_apps
-      @api_url = apps.body.data.apps[name].api_url
-      return api_url
-    end
   end
 end
