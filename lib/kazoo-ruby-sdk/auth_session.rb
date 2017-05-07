@@ -32,8 +32,7 @@ module KazooRubySdk
       @account_id = response.body.data.account_id
       @owner_id = response.body.data.owner_id
 
-      @api_url = select_session_endpoint_app('voip')
-      @api_pipe = create_conn_object(api_url)
+      @api_pipe = create_conn_object(@auth_url)
       shared_auth
     end
 
@@ -45,20 +44,10 @@ module KazooRubySdk
     end
 
     def get_endpoint_apps
-      begin
-        auth_pipe.get do |request|
-          request.url "accounts/#{account_id}/users/#{owner_id}"
-          request.headers['X-Auth-Token'] = auth_token
-        end
-      rescue => error
-        puts error
+      auth_pipe.get do |request|
+        request.url "accounts/#{account_id}/users/#{owner_id}"
+        request.headers['X-Auth-Token'] = auth_token
       end
-    end
-
-    def select_session_endpoint_app(name)
-      apps = get_endpoint_apps
-      @api_url = apps.body.data.apps[name].api_url
-      return api_url
     end
   end
 end

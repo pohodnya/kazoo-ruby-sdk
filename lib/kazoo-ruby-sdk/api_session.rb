@@ -12,24 +12,32 @@ module KazooRubySdk
     end
 
     def list_devices()
-      return pipe.get("accounts/#{account_id}/devices",
-                      'X-Auth-Token' => auth_token).body
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/devices"
+        request.headers['X-Auth-Token'] = auth_token
+      end.body
     end
 
     def get_device(device_id)
-      return pipe.get("accounts/#{account_id}/devices/#{device_id}",
-                      'X-Auth-Token' => auth_token).body
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/devices/#{device_id}"
+        request.headers['X-Auth-Token'] = auth_token
+      end.body
     end
 
     def get_device_statuses
-      return pipe.get("accounts/#{account_id}/devices/status",
-                      'X-Auth-Token' => auth_token).body
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/devices/status"
+        request.headers['X-Auth-Token'] = auth_token
+      end.body
     end
 
     def create_device(name)
-      return pipe.put("accounts/#{account_id}/devices",
-                      {:data => {:name => name}},
-                      'X-Auth-Token' => auth_token).body
+      pipe.get do |request|
+        request.url "accounts/#{account_id}/devices/status"
+        request.headers['X-Auth-Token'] = auth_token
+        request.body = {:data => {:name => name}}
+      end.body
     end
   end
 end
