@@ -32,11 +32,18 @@ module KazooRubySdk
       end.body
     end
 
-    def create_device(name)
-      pipe.get do |request|
-        request.url "accounts/#{account_id}/devices/status"
+    def create_device(name, owner_id)
+      pipe.put do |request|
+        request.url "accounts/#{account_id}/devices"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = {:data => {:name => name}}
+        request.body = {data: {name: name, owner_id: owner_id}}
+      end.body
+    end
+
+    def destroy_device(device_id)
+      pipe.delete do |request|
+        request.url "accounts/#{account_id}/devices/#{device_id}"
+        request.headers['X-Auth-Token'] = auth_token
       end.body
     end
 
