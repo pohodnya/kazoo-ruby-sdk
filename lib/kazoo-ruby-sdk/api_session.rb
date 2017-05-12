@@ -32,11 +32,13 @@ module KazooRubySdk
       end.body
     end
 
-    def create_device(name)
+    def create_device(attributes)
+      body = { data: {}}
+      attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.put do |request|
         request.url "accounts/#{account_id}/devices"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = {data: {name: name}}
+        request.body = body
       end.body
     end
 
