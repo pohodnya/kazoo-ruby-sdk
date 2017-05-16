@@ -33,22 +33,18 @@ module KazooRubySdk
     end
 
     def create_device(attributes)
-      body = { data: {}}
-      attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.put do |request|
         request.url "accounts/#{account_id}/devices"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = body
+        request.body = { data: attributes }
       end.body
     end
 
     def update_device(device_id, attributes)
-      body = { data: {}}
-      attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.patch do |request|
         request.url "accounts/#{account_id}/devices/#{device_id}"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = body
+        request.body = { data: attributes }
       end.body
     end
 
@@ -60,22 +56,18 @@ module KazooRubySdk
     end
 
     def create_user(attributes)
-      body = { data: {}}
-      attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.put do |request|
         request.url "accounts/#{account_id}/users"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = body
+        request.body = { data: attributes }
       end.body
     end
 
     def update_user(user_id, attributes)
-      body = { data: {}}
-      attributes.each { |key, value| body[:data][key] = value.to_s}
       pipe.patch do |request|
         request.url "accounts/#{account_id}/users/#{user_id}"
         request.headers['X-Auth-Token'] = auth_token
-        request.body = body
+        request.body = { data: attributes }
       end.body
     end
 
