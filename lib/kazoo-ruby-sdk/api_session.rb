@@ -42,6 +42,16 @@ module KazooRubySdk
       end.body
     end
 
+    def update_device(device_id, attributes)
+      body = { data: {}}
+      attributes.each { |key, value| body[:data][key] = value.to_s}
+      pipe.patch do |request|
+        request.url "accounts/#{account_id}/devices/#{device_id}"
+        request.headers['X-Auth-Token'] = auth_token
+        request.body = body
+      end.body
+    end
+
     def destroy_device(device_id)
       pipe.delete do |request|
         request.url "accounts/#{account_id}/devices/#{device_id}"
