@@ -48,7 +48,9 @@ module KazooRubySdk
         end
       end
 
-
+      def get_credentials_hash
+        Digest::MD5.hexdigest("#{KazooRubySdk.configuration.username}:#{KazooRubySdk.configuration.password}")
+      end
     end
   end
 end
