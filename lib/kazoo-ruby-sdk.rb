@@ -11,7 +11,7 @@ require 'kazoo-ruby-sdk/users'
 
 module KazooRubySdk
   class << self
-    attr_writer :configuration, :cache
+    attr_accessor :configuration, :cache
   end
 
   def self.configuration
@@ -27,7 +27,7 @@ module KazooRubySdk
   end
 
   def self.configure
-    cache = ActiveSupport::Cache::MemoryStore.new
+    self.cache = ActiveSupport::Cache::MemoryStore.new
     yield(configuration)
   end
 end
