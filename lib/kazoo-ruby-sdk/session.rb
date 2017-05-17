@@ -40,7 +40,6 @@ module KazooRubySdk
         end
       end
 
-      private
       def auth_response
         # KazooRubySdk.cache.fetch('auth_response') do
         req = {:data => {:credentials => get_credentials_hash, :realm => self.realm}, :verb => 'PUT'}
