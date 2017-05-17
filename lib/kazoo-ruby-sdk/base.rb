@@ -6,7 +6,7 @@ module KazooRubySdk
       @realm = KazooRubySdk::Session.realm
       @account_id = KazooRubySdk::Session.account_id
       @owner_id = KazooRubySdk::Session.owner_id
-      @pipe = KazooRubySdk::Session.api_url
+      @pipe = KazooRubySdk::Session.pipe
     end
   end
 end
