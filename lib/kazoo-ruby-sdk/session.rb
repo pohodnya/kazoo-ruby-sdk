@@ -42,11 +42,11 @@ module KazooRubySdk
 
       private
       def auth_response
-        KazooRubySdk.cache.fetch('auth_response') do
-          req = {:data => {:credentials => get_credentials_hash, :realm => self.realm}, :verb => 'PUT'}
-          response = self.auth_pipe.put 'user_auth', req
-          response.body
-        end
+        # KazooRubySdk.cache.fetch('auth_response') do
+        req = {:data => {:credentials => get_credentials_hash, :realm => self.realm}, :verb => 'PUT'}
+        response = self.auth_pipe.put 'user_auth', req
+        response.body
+        # end
       end
 
       def get_credentials_hash

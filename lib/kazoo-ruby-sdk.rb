@@ -18,12 +18,16 @@ module KazooRubySdk
     @configuration ||= Configuration.new
   end
 
+  def self.cache
+    @cache
+  end
+
   def self.reset
     @configuration = Configuration.new
   end
 
   def self.configure
+    cache = ActiveSupport::Cache::MemoryStore.new
     yield(configuration)
-    @cache = ActiveSupport::Cache::MemoryStore.new
   end
 end
