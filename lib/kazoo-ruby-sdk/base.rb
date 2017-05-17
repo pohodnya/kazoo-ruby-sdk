@@ -1,6 +1,6 @@
 module KazooRubySdk
   class Base
-    def initialize
+    if KazooRubySdk.try(:configuration)
       @auth_token = KazooRubySdk::Session.auth_token
       @api_url = KazooRubySdk::Session.api_url
       @realm = KazooRubySdk::Session.realm
