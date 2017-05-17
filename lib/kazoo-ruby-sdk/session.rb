@@ -14,11 +14,11 @@ module KazooRubySdk
       end
 
       def account_id
-        auth_response.account_id
+        auth_response.data.account_id
       end
 
       def owner_id
-        auth_response.owner_id
+        auth_response.data.owner_id
       end
 
       def auth_token
