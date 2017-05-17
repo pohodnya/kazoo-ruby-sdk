@@ -6,11 +6,11 @@ module KazooRubySdk
 
     class << self
       def api_url
-        KazooRubySdk::Configuration.api_url
+        KazooRubySdk.configuration.api_url
       end
 
       def realm
-        KazooRubySdk::Configuration.realm
+        KazooRubySdk.configuration.realm
       end
 
       def account_id
@@ -44,13 +44,13 @@ module KazooRubySdk
       def auth_response
         # KazooRubySdk.cache.fetch('auth_response') do
         req = {:data => {:credentials => get_credentials_hash, :realm => self.realm}, :verb => 'PUT'}
-        response = self.auth_pipe.put 'user_auth', req
+        response = pipe.put 'user_auth', req
         response.body
         # end
       end
 
       def get_credentials_hash
-        Digest::MD5.hexdigest("#{KazooRubySdk::Configuration.username}:#{KazooRubySdk::Configuration.password}")
+        Digest::MD5.hexdigest("#{KazooRubySdk.configuration.username}:#{KazooRubySdk.configuration.password}")
       end
     end
   end
