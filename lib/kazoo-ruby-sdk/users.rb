@@ -1,7 +1,7 @@
 module KazooRubySdk
   class Users < Base
     class << self
-      def create_user(attributes)
+      def create(attributes)
         pipe.put do |request|
           request.url "accounts/#{account_id}/users"
           request.headers['X-Auth-Token'] = auth_token
@@ -9,7 +9,7 @@ module KazooRubySdk
         end.body
       end
 
-      def update_user(user_id, attributes)
+      def update(user_id, attributes)
         pipe.patch do |request|
           request.url "accounts/#{account_id}/users/#{user_id}"
           request.headers['X-Auth-Token'] = auth_token
@@ -17,21 +17,21 @@ module KazooRubySdk
         end.body
       end
 
-      def list_users
+      def list
         pipe.get do |request|
           request.url "accounts/#{account_id}/users"
           request.headers['X-Auth-Token'] = auth_token
         end.body
       end
 
-      def get_user(user_id)
+      def get(user_id)
         pipe.get do |request|
           request.url "accounts/#{account_id}/users/#{user_id}"
           request.headers['X-Auth-Token'] = auth_token
         end.body
       end
 
-      def destroy_user(user_id)
+      def destroy(user_id)
         pipe.delete do |request|
           request.url "accounts/#{account_id}/users/#{user_id}"
           request.headers['X-Auth-Token'] = auth_token

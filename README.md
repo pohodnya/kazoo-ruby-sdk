@@ -22,34 +22,37 @@ Or install it yourself as:
 
 Create config/initializers/kazoo_ruby_sdk.rb
 ```ruby
-KazooRubySdk.auth_url = 'http://yourserver.com:8000/v1'
-KazooRubySdk.realm = 'your-realm'
-KazooRubySdk.username = 'your-username'
-KazooRubySdk.password = 'your-password'
+KazooRubySdk.configure do |config|
+  config.auth_url = 'http://yourserver.com:8000/v1'
+  config.realm = 'your-realm'
+  config.username = 'your-username'
+  config.password = 'your-password'
+end
 ```
 
 ## Usage
 ```ruby
-api = KazooRubySdk::AuthSession.new    
-session = api.new_session    
-devices = session.list_devices.data    
+devices = KazooRubySdk::Devices.list.data        
 device_id = devices[0].id    
-device = session.get_device(device_id)
+device = KazooRubySdk::Devices.get(device_id)
 ```
  
 ## List of methods
 
-#### Device
-* list_devices()
-* get_device(device_id)
-* get_device_statuses
-* create_device(name)
+#### Devices
+* list()
+* get(device_id)
+* get_statuses
+* create(attributes)
+* update(id, attributes)
+* destroy(id)
 
-#### User
-* list_users()
-* get_user(user_id)
-* create_user(attributes)
-* update_user(user_id, attributes)
+#### Users
+* list()
+* get(id)
+* create(attributes)
+* update(id, attributes)
+* destroy(id)
 
 ## Contributing
 
