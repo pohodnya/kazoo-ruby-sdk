@@ -1,14 +1,10 @@
 module KazooRubySdk
   class Base
-    def create_conn_object(url)
-      Faraday.new(:url => url, ssl: { verify: false }) do |builder|
-        builder.use Faraday::Response::Mashify
-        builder.use Faraday::Response::ParseJson
-        builder.use Faraday::Response::RaiseError
-        builder.use FaradayMiddleware::EncodeJson
-        builder.use Faraday::Request::UrlEncoded
-        builder.adapter Faraday.default_adapter
-      end
-    end
+    @auth_token = KazooRubySdk::Session.auth_token
+    @api_url = KazooRubySdk::Session.api_url
+    @realm = KazooRubySdk::Session.realm
+    @account_id = KazooRubySdk::Session.account_id
+    @owner_id = KazooRubySdk::Session.owner_id
+    @pipe = KazooRubySdk::Session.api_url
   end
 end
