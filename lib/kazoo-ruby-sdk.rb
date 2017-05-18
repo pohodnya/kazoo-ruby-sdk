@@ -27,7 +27,7 @@ module KazooRubySdk
   end
 
   def self.configure
-    self.cache = ActiveSupport::Cache::MemoryStore.new
+    self.cache = ActiveSupport::Cache::MemoryStore.new expires_in: 5.minutes
     yield(configuration)
   end
 end
