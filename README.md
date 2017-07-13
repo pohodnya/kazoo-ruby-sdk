@@ -61,6 +61,11 @@ device = KazooRubySdk::Devices.get(device_id)
 * update(id, attributes)
 * destroy(id)
 
+#### CDRs
+* range(from, to)
+* get(cdr_id)
+* get_all_by_user(user_id)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/pohodnya/kazoo-ruby-sdk.
