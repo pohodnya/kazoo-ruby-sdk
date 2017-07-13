@@ -8,6 +8,7 @@ require 'kazoo-ruby-sdk/session'
 require 'kazoo-ruby-sdk/base'
 require 'kazoo-ruby-sdk/devices'
 require 'kazoo-ruby-sdk/users'
+require 'kazoo-ruby-sdk/callflows'
 
 module KazooRubySdk
   class << self

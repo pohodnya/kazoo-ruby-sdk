@@ -54,6 +54,13 @@ device = KazooRubySdk::Devices.get(device_id)
 * update(id, attributes)
 * destroy(id)
 
+#### Callflows
+* list()
+* get(id)
+* create(attributes)
+* update(id, attributes)
+* destroy(id)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/pohodnya/kazoo-ruby-sdk.
