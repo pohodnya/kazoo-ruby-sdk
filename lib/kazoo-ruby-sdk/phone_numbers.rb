@@ -3,11 +3,13 @@ module KazooRubySdk
     class << self
       # Creates phone number in kazoo for specific account
       # @param phone_number [String] the phone number
+      # @param data [Hash] number's data. see https://github.com/2600hz/kazoo/blob/master/applications/crossbar/doc/phone_numbers.md#schema
       # @return [Hashie::Mash] response body
-      def create(phone_number)
+      def create(phone_number, data = {})
         pipe.put do |request|
           request.url "accounts/#{account_id}/phone_numbers/#{phone_number}"
           request.headers['X-Auth-Token'] = auth_token
+          request.body = { data: data }
         end.body
       end
 
@@ -29,7 +31,7 @@ module KazooRubySdk
       def destroy(phone_numbers)
         pipe.delete do |request|
           request.url "accounts/#{account_id}/phone_numbers/#{phone_number}"
-          request.headers['X-Auth-Token'] = auth_token  
+          request.headers['X-Auth-Token'] = auth_token
         end.body
       end
     end
