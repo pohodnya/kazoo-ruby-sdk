@@ -3,6 +3,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'kazoo-ruby-sdk/version'
 
+require 'kazoo-ruby-sdk/connection'
 require 'kazoo-ruby-sdk/base'
 require 'kazoo-ruby-sdk/callflows'
 require 'kazoo-ruby-sdk/cdrs'

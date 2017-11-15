@@ -1,56 +1,42 @@
 module KazooRubySdk
   class Session
-    class << self
-      attr_writer :api_url, :realm, :account_id, :owner_id, :auth_token, :pipe
+    include KazooRubySdk::Connection
+
+    def initialize(configuration = {})
+      @api_url = configuration[:api_url]
+      @realm = configuration[:realm] || KazooRubySdk.configuration.realm
+      @username = configuration[:username] || KazooRubySdk.configuration.username
+      @password = configuration[:password] || KazooRubySdk.configuration.password
     end
 
-    class << self
-      def api_url
-        KazooRubySdk.configuration.api_url
-      end
+    def account_id
+      auth_response.data.account_id
+    end
 
-      def realm
-        KazooRubySdk.configuration.realm
-      end
+    def owner_id
+      auth_response.data.owner_id
+    end
 
-      def account_id
-        auth_response.data.account_id
-      end
+    def auth_token
+      auth_response.auth_token
+    end
 
-      def owner_id
-        auth_response.data.owner_id
-      end
+    private
 
-      def auth_token
-        auth_response.auth_token
-      end
+    def auth_response
+      req = {
+              :data => {
+                :credentials => get_credentials_hash,
+                :realm => @realm
+              },
+              :verb => 'PUT'
+            }
+      response = pipeline(@api_url).put 'user_auth', req
+      response.body
+    end
 
-      def pipe
-        create_conn_object(api_url)
-      end
-
-      def create_conn_object(url)
-        Faraday.new(:url => url, ssl: { verify: false }) do |builder|
-          builder.use Faraday::Response::Mashify
-          builder.use Faraday::Response::ParseJson
-          builder.use Faraday::Response::RaiseError
-          builder.use FaradayMiddleware::EncodeJson
-          builder.use Faraday::Request::UrlEncoded
-          builder.adapter Faraday.default_adapter
-        end
-      end
-
-      def auth_response
-        KazooRubySdk.cache.fetch('auth_response') do
-          req = {:data => {:credentials => get_credentials_hash, :realm => self.realm}, :verb => 'PUT'}
-          response = pipe.put 'user_auth', req
-          response.body
-        end
-      end
-
-      def get_credentials_hash
-        Digest::MD5.hexdigest("#{KazooRubySdk.configuration.username}:#{KazooRubySdk.configuration.password}")
-      end
+    def get_credentials_hash
+      Digest::MD5.hexdigest("#{@username}:#{@password}")
     end
   end
 end

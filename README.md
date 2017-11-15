@@ -32,27 +32,25 @@ end
 
 ## Usage
 ```ruby
-devices = KazooRubySdk::Devices.list.data        
+devices = KazooRubySdk::Devices.new.list.data        
 device_id = devices[0].id    
 device = KazooRubySdk::Devices.get(device_id)
 ```
+
+By default each method of this SDK will be use the configuration from initializer. 
+Also you can explicitly specify a configuration before calling any method.
+
+```ruby
+configuration = {
+  auth_url: 'http://your_other_server.com:8000/v1',
+  realm: 'your-other-realm',
+  username: 'your-other-username',
+  password: 'your-other-password'
+}
+devices = KazooRubySdk::Devices.new(configuration).list.data        
+```
  
 ## List of methods
-
-#### Devices
-* list()
-* get(device_id)
-* get_statuses
-* create(attributes)
-* update(id, attributes)
-* destroy(id)
-
-#### Users
-* list()
-* get(id)
-* create(attributes)
-* update(id, attributes)
-* destroy(id)
 
 #### Callflows
 * list()
@@ -65,6 +63,27 @@ device = KazooRubySdk::Devices.get(device_id)
 * range(from, to)
 * get(cdr_id)
 * get_all_by_user(user_id)
+
+#### Devices
+* list()
+* get(device_id)
+* get_statuses
+* create(attributes)
+* update(id, attributes)
+* destroy(id)
+
+#### Phone Numbers
+* create(phone_number, data)
+* butch_create(phone_numbers)
+* destroy(phone_number)
+
+#### Users
+* list()
+* get(id)
+* create(attributes)
+* update(id, attributes)
+* destroy(id)
+
 
 ## Contributing
 
