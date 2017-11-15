@@ -1,8 +1,5 @@
-require 'active_support/concern'
-
 module KazooRubySdk
   module Connection
-    extend ActiveSupport::Concern
 
     def pipeline(api_url = nil)
       api_url ||= KazooRubySdk.configuration.api_url
