@@ -3,6 +3,7 @@ module KazooRubySdk
 
     # Creates phone number in kazoo for specific account
     # @param phone_number [String] the phone number
+    # @param custom_account_id [String] custom Kazoo account_id
     # @param data [Hash] number's data. see https://github.com/2600hz/kazoo/blob/master/applications/crossbar/doc/phone_numbers.md#schema
     # @return [Hashie::Mash] response body
     def create(phone_number, custom_account_id = nil, data = {})
@@ -15,6 +16,7 @@ module KazooRubySdk
 
     # Creates list of phone numbers in kazoo for specific account
     # @param phone_number [Array] list of phone numbers
+    # @param custom_account_id [String] custom Kazoo account_id
     # @return [Hashie::Mash] response body
     def butch_create(phone_numbers, custom_account_id = nil)
       pipe.put do |request|
@@ -27,6 +29,7 @@ module KazooRubySdk
 
     # Delete a specific phone number
     # @param phone_number [Array] the phone number
+    # @param custom_account_id [String] custom Kazoo account_id
     # @return [Hashie::Mash] response body
     def destroy(phone_number, custom_account_id = nil)
       pipe.delete do |request|
