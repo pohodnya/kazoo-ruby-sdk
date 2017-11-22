@@ -3,11 +3,12 @@ module KazooRubySdk
 
     # Creates phone number in kazoo for specific account
     # @param phone_number [String] the phone number
+    # @param custom_account_id [String] custom Kazoo account_id
     # @param data [Hash] number's data. see https://github.com/2600hz/kazoo/blob/master/applications/crossbar/doc/phone_numbers.md#schema
     # @return [Hashie::Mash] response body
-    def create(phone_number, data = {})
+    def create(phone_number, custom_account_id = nil, data = {})
       pipe.put do |request|
-        request.url "accounts/#{account_id}/phone_numbers/#{phone_number}"
+        request.url "accounts/#{custom_account_id || account_id}/phone_numbers/#{phone_number}"
         request.headers['X-Auth-Token'] = auth_token
         request.body = { data: data }
       end.body
@@ -15,10 +16,11 @@ module KazooRubySdk
 
     # Creates list of phone numbers in kazoo for specific account
     # @param phone_number [Array] list of phone numbers
+    # @param custom_account_id [String] custom Kazoo account_id
     # @return [Hashie::Mash] response body
-    def butch_create(phone_numbers)
+    def butch_create(phone_numbers, custom_account_id = nil)
       pipe.put do |request|
-        request.url "accounts/#{account_id}/phone_numbers/collection"
+        request.url "accounts/#{custom_account_id || account_id}/phone_numbers/collection"
         request.headers['X-Auth-Token'] = auth_token
         request.body = { data: {numbers: phone_numbers} }
       end.body
@@ -27,10 +29,11 @@ module KazooRubySdk
 
     # Delete a specific phone number
     # @param phone_number [Array] the phone number
+    # @param custom_account_id [String] custom Kazoo account_id
     # @return [Hashie::Mash] response body
-    def destroy(phone_number)
+    def destroy(phone_number, custom_account_id = nil)
       pipe.delete do |request|
-        request.url "accounts/#{account_id}/phone_numbers/#{phone_number}"
+        request.url "accounts/#{custom_account_id || account_id}/phone_numbers/#{phone_number}"
         request.headers['X-Auth-Token'] = auth_token
       end.body
     end

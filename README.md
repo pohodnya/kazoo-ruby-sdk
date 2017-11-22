@@ -73,9 +73,9 @@ devices = KazooRubySdk::Devices.new(configuration).list.data
 * destroy(id)
 
 #### Phone Numbers
-* create(phone_number, data)
-* butch_create(phone_numbers)
-* destroy(phone_number)
+* create(phone_number, account_id, data)
+* butch_create(phone_numbers, account_id)
+* destroy(phone_number, account_id)
 
 #### Users
 * list()
